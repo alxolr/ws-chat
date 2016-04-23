@@ -18,16 +18,19 @@
   });
 
   wss.on("connection", (ws) => {
-
-    ws.send(JSON.stringify(questions));
-
     ws.on('message', (question) => {
       questions.push(question);
-      ws.send(JSON.stringify(questions));
+      broadcast(questions);
     });
 
     ws.on("close", () => {
       console.log("connection closed");
     });
   });
+
+  function broadcast(questions) {
+    wss.clients.forEach((client) => {
+      client.send(JSON.stringify(questions));
+    });
+  }
 })();
