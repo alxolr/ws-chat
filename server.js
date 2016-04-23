@@ -6,7 +6,7 @@
   const WebSocketServer = require('ws').Server;
   const app = express();
   const port = process.env.PORT || 8080;
-  const questions = [];
+  let questions = [];
 
   app.use(express.static(__dirname + '/'));
   const server = http.createServer(app);
@@ -18,8 +18,15 @@
   });
 
   wss.on("connection", (ws) => {
+    broadcast(questions);
     ws.on('message', (question) => {
+
       questions.push(question);
+
+      if (question === "--clear") {
+        questions = [];
+      }
+
       broadcast(questions);
     });
 

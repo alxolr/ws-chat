@@ -27,7 +27,7 @@
     var host = location.origin.replace(/^http/, 'ws')
     var ws = new WebSocket(host);
     var question = document.querySelector('#question');
-
+    
     question.addEventListener('keypress', function (event) {
       if (event.keyCode === 13) {
         askQuestion();
