@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <title>Pentalog Opendays questions</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Questions:</h1>
+      <ul id='questions'></ul>
+      <hr />
+      <div class="row">
+
+        <div class="col-sm-12">
+          <div class="input-group input-group-lg">
+            <input id="question" type="text" class="form-control" placeholder="Ask a question">
+            <span class="input-group-btn">
+              <button class="btn btn-success" name="name" onclick="askQuestion()">Ask</button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var host = location.origin.replace(/^http/, 'ws')
+    var ws = new WebSocket(host);
+    var question = document.querySelector('#question');
+
+    question.addEventListener('keypress', function (event) {
+      if (event.keyCode === 13) {
+        askQuestion();
+        question.value = "";
+      }
+    });
+
+    ws.onmessage = function (event) {
+      var questions = JSON.parse(event.data);
+      document.querySelector('#questions').innerHTML = "";
+      questions.forEach(function(item) {
+        var li = document.createElement('li');
+        var h3 = document.createElement('h3');
+        h3.innerHTML = item;
+        li.appendChild(h3);
+        document.querySelector('#questions').appendChild(li);
+      });
+    };
+
+    function askQuestion() {
+      ws.send(question.value);
+      question.value = "";
+    }
+  </script>
+</body>
+</html>
