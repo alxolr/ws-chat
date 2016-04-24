@@ -16,6 +16,7 @@
             </span>
           </div>
         </div>
+        <br>
       </div>
       <ul id='questions'></ul>
     </div>
@@ -36,7 +37,7 @@
     ws.onmessage = function (event) {
       var questions = JSON.parse(event.data);
       document.querySelector('#questions').innerHTML = "";
-      questions.forEach(function(item) {
+      questions.forEach(function (item) {
         var li = document.createElement('li');
         var h3 = document.createElement('h3');
         h3.innerHTML = item;
