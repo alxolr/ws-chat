@@ -22,7 +22,7 @@
     ws.on('message', (question) => {
 
       questions.push(question);
-
+      questions = questions.slice(-5);
       if (question === "--clear") {
         questions = [];
       }
