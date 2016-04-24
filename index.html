@@ -6,20 +6,18 @@
   </head>
   <body>
     <div class="container">
-      <h1>Questions:</h1>
-      <ul id='questions'></ul>
-      <hr />
-      <div class="row">
-
+      <div class="jumbotron">
+        <h1>Questions:</h1>
         <div class="col-sm-12">
           <div class="input-group input-group-lg">
-            <input id="question" type="text" class="form-control" placeholder="Ask a question" required="true">
+            <input id="question" type="text" class="form-control" placeholder="Ask a question">
             <span class="input-group-btn">
               <button class="btn btn-success" name="name" onclick="askQuestion()">Ask</button>
             </span>
           </div>
         </div>
       </div>
+      <ul id='questions'></ul>
     </div>
   </div>
 
@@ -48,7 +46,9 @@
     };
 
     function askQuestion() {
-      ws.send(question.value);
+      if (question.value !== "") {
+        ws.send(question.value);
+      }
       question.value = "";
     }
   </script>
