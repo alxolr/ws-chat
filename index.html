@@ -13,7 +13,7 @@
 
         <div class="col-sm-12">
           <div class="input-group input-group-lg">
-            <input id="question" type="text" class="form-control" placeholder="Ask a question">
+            <input id="question" type="text" class="form-control" placeholder="Ask a question" required="true">
             <span class="input-group-btn">
               <button class="btn btn-success" name="name" onclick="askQuestion()">Ask</button>
             </span>
@@ -27,7 +27,7 @@
     var host = location.origin.replace(/^http/, 'ws')
     var ws = new WebSocket(host);
     var question = document.querySelector('#question');
-    
+
     question.addEventListener('keypress', function (event) {
       if (event.keyCode === 13) {
         askQuestion();
